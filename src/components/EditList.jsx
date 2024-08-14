@@ -2,20 +2,20 @@ import { Modal } from "antd";
 
 const EditList = ({ isOpen, title, body, handleOnChange, onSave, onCancel }) => {
   return (
-    <Modal title="Edit List" open={isOpen} onOk={() => onSave()} onCancel={() => onCancel()} onClose={() => onCancel()}>
+    <Modal className="form-modal" title="Edit List" open={isOpen} onOk={() => onSave()} onCancel={() => onCancel()} onClose={() => onCancel()}>
       <div className="form-group">
         <label htmlFor="title" className="form-label">
           Title:{" "}
         </label>
-        <input id="title" name="title" type="text" className="form-input" value={title} onChange={(e) => handleOnChange("title", e)}></input>
+        <textarea id="title" name="title" type="text" className="form-title" value={title} onChange={(e) => handleOnChange("title", e)}></textarea>
       </div>
 
       <div className="form-group">
         <label htmlFor="body" className="form-label">
           Body:{" "}
         </label>
-        <input id="body" name="body" type="text" className="form-input" value={body} onChange={(e) => handleOnChange("body", e)}></input>
-      </div>
+        <textarea id="body" name="body" type="text" className="form-body" value={body} onChange={(e) => handleOnChange("body", e)}></textarea>
+      </div> 
     </Modal>
   );
 };

@@ -25,6 +25,7 @@ const Home = () => {
       const res = await axios.get("https://jsonplaceholder.typicode.com/posts");
       const data = res.data.slice(0, 10);
 
+      // Set loginName for each data
       const newDataList = data.map((item, index) => ({ ...item, loginName: loginName[index] || "Unknown" }));
       setDataList(newDataList);
     } catch (error) {
@@ -33,15 +34,16 @@ const Home = () => {
     }
   };
 
+  // Call API when component mounts or loginName changes
   useEffect(() => {
     callAPI();
-  }, [loginName, setDataList]); // dependency
+  }, [loginName, setDataList]); 
 
   const showModal = () => {
     setOpen(true);
   };
 
-  const onEdit = async (id) => {
+  const handleSave = async (id) => {
     try {
       const result = await axios({
         method: "put",
@@ -72,19 +74,6 @@ const Home = () => {
   };
   
 
-  const handleUser = (postOwner) => {
-    console.log("Currentuser", username);
-    console.log("Post Owners", postOwner);
-
-    if (username === postOwner) {
-      console.log("you're the owner");
-    } else {
-      console.log("you're not the owner");
-    }
-  }
-
-    
-
   return (
     <Layout>
       <Header className="header">
@@ -111,10 +100,10 @@ const Home = () => {
                 className="Button"
                 type="button"
                 onClick={() => {
-                  handleUser(data.loginName); 
                   setNewList({ id: data.id, title: data.title, body: data.body });
                   showModal();
                 }}
+                disabled={data.loginName !== username} // only show buttons where username is the owner
               >
                 Edit
               </button>
@@ -128,10 +117,9 @@ const Home = () => {
                     [name]: e.target.value, // name = title or body
                   })
                 }
-                onSave={() => onEdit(newList.id)}
+                onSave={() => handleSave(newList.id)}
                 onCancel={() => handleCancel()}
               />
-              {/* <button className="Button" type="button" onClick={() => deleteItem(obj.id)}>Delete</button> */}
             </div>
           </div>
         ))}

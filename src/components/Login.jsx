@@ -6,8 +6,8 @@ import { UserContext } from "../context/UserContext";
 
 const Login = () => {
   const { username, setUsername } = useContext(UserContext);
-  const [ localUsername, setLocalUsername ] = useState("");
   const { loginName, setloginName } = useContext(UserContext);
+  const [ localUsername, setLocalUsername ] = useState("");
 
   const navigate = useNavigate();
   const goToRegister = () => {
@@ -17,7 +17,7 @@ const Login = () => {
   const formSubmit = (e) => {
     e.preventDefault();
     if (validUsername(localUsername)) {
-      setUsername(localUsername); // update username to local username
+      setUsername(localUsername); // update username to local username -> Home
       setLocalUsername(""); // clear local username input
       navigate("/");
     }
@@ -27,14 +27,19 @@ const Login = () => {
     setLocalUsername(e.target.value);
   };
 
-  const validUsername = (username) => {
-    if (localUsername === username) {
+  // Check if entered name is among loginName
+  const validUsername = (localUsername) => {
+    if (loginName.includes(localUsername)) {
       return true; // username is valid
     } else {
-      alert("Invalid username");
+      alert("Please try again or register your account");
       return false;
     }
   };
+
+  console.log("username", username);
+  console.log("localUsername", localUsername);
+  // console.log(loginName.includes(localUsername));
 
   return (
     <form onSubmit={formSubmit}>

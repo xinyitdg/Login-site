@@ -7,7 +7,7 @@ export function UserContextProvider({ children }) {
   const [dataList, setDataList] = useState([]);
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
-  const [loginName, setloginName] = useState(["xy", "anis", "jack", "lichuan", "geetha", "alif", "atika", "janjit", "hanzhong", "brendon"]); // username for each data
+  const [loginName, setLoginName] = useState(["xy", "anis", "jack", "lichuan", "geetha", "alif", "atika", "janjit", "hanzhong", "brendon"]); // username for each data
 
   return (
     <UserContext.Provider
@@ -21,7 +21,7 @@ export function UserContextProvider({ children }) {
         body,
         setBody,
         loginName,
-        setloginName,
+        setLoginName,
       }}
     >
       {children}

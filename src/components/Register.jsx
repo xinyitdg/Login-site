@@ -6,12 +6,12 @@ import { UserContext } from "../context/UserContext";
 
 const Register = () => {
   const { username, setUsername } = useContext(UserContext);
-  const { loginName, setloginName } = useContext(UserContext);
-  const [localUsername, setLocalUsername] = useState("");
+  const { loginName, setLoginName } = useContext(UserContext);
+  const [ localUsername, setLocalUsername ] = useState("");
 
   const navigate = useNavigate();
-  const location = useLocation();
-  console.log(location);
+  // const location = useLocation();
+  // console.log(location);
   const goToLogin = () => {
     navigate("/Login");
   };
@@ -19,9 +19,11 @@ const Register = () => {
   const formSubmit = (e) => {
     e.preventDefault();
     if (validUsername(localUsername)) {
-      setUsername(localUsername); // 
+      setUsername(localUsername); // update username to local username -> Home
       setLocalUsername(""); // clear local username input
-      navigate("/");
+      setUsername("");
+      alert("You are now registered, please login");
+      goToLogin();
     }
   };
 
@@ -29,10 +31,27 @@ const Register = () => {
     setLocalUsername(e.target.value);
   };
 
-  const validUsername = () => {
-    console.log("check if localusername is among loginName")
-    console.log("add localusername to loginName")
+  // Check if entered name is among loginName
+  const validUsername = (localUsername) => {
+    if (loginName.includes(localUsername)) {
+      alert("Username already exists, please login"); // username exists, prompt login
+      return false; 
+    } else {
+      addUser();
+      return true;
+    }
   };
+
+  const addUser = () => {
+      // const newLoginName = loginName.map((localUsername) =>{
+      //     return { ...loginName, ...localUsername}; 
+      // }); // doesnt work - generates array of objects instead of usernames
+      const newLoginName = [...loginName, localUsername]; // append new username to loginName
+      setLoginName(newLoginName);
+  };
+
+  console.log("username", username);
+  console.log("localUsername", localUsername);
   
   return (
     <form onSubmit={formSubmit}>
