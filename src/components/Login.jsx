@@ -5,8 +5,7 @@ import { UserOutlined } from "@ant-design/icons";
 import { UserContext } from "../context/UserContext";
 
 const Login = () => {
-  const { username, setUsername } = useContext(UserContext);
-  const { loginName, setloginName } = useContext(UserContext);
+  const { username, setUsername, loginName } = useContext(UserContext);
   const [ localUsername, setLocalUsername ] = useState("");
 
   const navigate = useNavigate();
@@ -36,10 +35,6 @@ const Login = () => {
       return false;
     }
   };
-
-  console.log("username", username);
-  console.log("localUsername", localUsername);
-  // console.log(loginName.includes(localUsername));
 
   return (
     <form onSubmit={formSubmit}>

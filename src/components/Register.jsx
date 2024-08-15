@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import "./Register.css";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { UserOutlined } from "@ant-design/icons";
 import { UserContext } from "../context/UserContext";
 
@@ -10,8 +10,6 @@ const Register = () => {
   const [ localUsername, setLocalUsername ] = useState("");
 
   const navigate = useNavigate();
-  // const location = useLocation();
-  // console.log(location);
   const goToLogin = () => {
     navigate("/Login");
   };
