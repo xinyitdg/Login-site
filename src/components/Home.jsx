@@ -1,12 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Home.css";
-import { Layout, Menu, Input } from "antd";
 import { UserContext } from "../context/UserContext";
 import EditList from "./EditList";
-
-const { TextArea } = Input;
-const { Header } = Layout;
 
 const Home = () => {
   const { dataList, setDataList, loginName, setLoginName, newData, setNewData } = useContext(UserContext);
@@ -106,31 +102,28 @@ const Home = () => {
   
 
   return (
-    <Layout>
-      <Header className="header">
-        <Menu theme="dark" mode="horizontal">
-          <div style={{ flex: 1 }}>
-            <h1>Welcome, {username}!</h1>
-          </div>
-          <button className="logout" onClick={goToLogin}>
-            Logout
-          </button>
-        </Menu>
-      </Header>
+    <div className="container">
+      <div className="header">
+        <div className="menu">
+          <h1>Welcome, {username}!</h1>
+        </div>
+        <button className="logout" onClick={goToLogin}>
+          Logout
+        </button>
+      </div>
       <div className="item-container">
         <div className="add-group">
           <div className="add-input">
-            <Input
-              className="add-margin"
+            <input
+              className="add-title"
               placeholder="Title"
               value={newData.title}
               onChange={(e) => setNewData({ ...newData, title: e.target.value })}
               required
             />
-            <TextArea
-              className="add-margin"
+            <textarea
+              className="add-body"
               placeholder="Body"
-              rows={4}
               value={newData.body}
               onChange={(e) => setNewData({ ...newData, body: e.target.value })}
               required
@@ -190,7 +183,7 @@ const Home = () => {
           </div>
         ))}
       </div>
-    </Layout>
+    </div>
   );
 };
 

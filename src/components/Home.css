@@ -1,7 +1,32 @@
+html,
+body {
+  height: 100%;
+  font-family: 'Source Sans Pro';
+  overflow-x: hidden;
+}
+
+textarea, input, select {
+  font-size: inherit;
+  font-weight: inherit;
+  text-decoration: none;
+  font-family: inherit;
+}
+
+.container {
+  overflow: hidden;
+}
+
 .header {
   display: flex;
   align-items: center;
   position: relative;
+  background-color: rgb(1, 19, 27);
+  color: rgba(255, 255, 255, 0.822);
+  padding: 20px;
+}
+
+.menu{
+  flex: 1;
 }
 
 .logout {
@@ -9,15 +34,15 @@
   border: none;
   color: white;
   text-align: center;
-  display: inline-block;
+  /* display: inline-block; */
   font-size: 14px;
   margin: 10px 10px;
   cursor: pointer;
   border-radius: 40px;
   width: 100px;
   height: 44px;
-  position: absolute;
-  right: 50px;
+  /* position: absolute; */
+  /* right: 50px; */
 }
 
 .items-container {
@@ -110,27 +135,46 @@
 
 .add-group{
   display: flex;
+  position: relative;
   align-items: center;
-  margin-bottom: 15px;
-  margin-top: 10px;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin: 10px 10px 15px 10px;
+  width: 100%;
+  justify-content: space-between;
+  overflow: hidden;
 }
 
 .add-input{
-  flex: 1;
+  display: flex;
   padding: 8px;
+  flex-direction: column;
+  flex: 1;
+  width: 100%;
+  overflow: hidden;
 }
 
-.add-margin {
+.add-title {
   margin: 8px;
+  padding: 6px;
+  width: 100%;
+}
+
+.add-body {
+  margin: 8px;
+  padding: 6px;
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 50px;
+  max-height: 100px;
+  
 }
 
 .add-button{
+  display: flex;
+  flex-shrink: 0;
   text-align: center;
   display: inline-block;
   font-size: 14px;
-  margin: 20px;
+  margin: 30px 40px 30px 30px;
   cursor: pointer;
   border-radius: 40px;
   width: 100px;
