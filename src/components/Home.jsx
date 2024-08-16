@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Home.css";
 import { Layout, Menu, Input } from "antd";
@@ -9,44 +9,60 @@ const { TextArea } = Input;
 const { Header } = Layout;
 
 const Home = () => {
-  const { username, dataList, setDataList, loginName,newData, setNewData } = useContext(UserContext);
-  const [open, setOpen] = useState(false); // Modal state for editing
-  const [newList, setNewList] = useState(null);
+  const { dataList, setDataList, loginName, setLoginName, newData, setNewData } = useContext(UserContext);
+  const [ open, setOpen ] = useState(false); // Modal state for editing
+  const [ newList, setNewList ] = useState(null);
+  const [ username, setUsername ] = useState(null); // Set username locally, so it doesnt load username = "" from UserContext
 
   const navigate = useNavigate();
   const goToLogin = () => {
     navigate("/Login");
   };
 
+  useEffect(() => {
+    // Check if username exists and redirect to login if not
+    const storedUsername = localStorage.getItem('username');
+    if (!storedUsername) {
+      navigate("/login");
+    } else {
+      setUsername(storedUsername);
+    }
+  }, [navigate, setUsername]);
+
   const showModal = () => {
     setOpen(true);
   };
 
-
   const handleAdd = () => {
     // Generate a new ID
     const newId = () => {
-      if (dataList.length > 0) { // if objects exists = new post
+      if (dataList.length > 0) {
+        // if objects exists = new post
         const lastIndex = dataList.length - 1; // get last object index
         return dataList[lastIndex].id + 1; // return id of that object + 1
-      };
-       
-    }
-
-    // Create a new post
-    const newPost = {
-      id: newId,
-      title: newData.title,
-      body: newData.body,
-      loginName: username
+      }
+      return 1; // return 1 if no data exists
     };
 
-    console.log(newPost); 
-    console.log(dataList); 
+    // Create a new posts
+    const newPost = {
+      id: newId(),
+      title: newData.title,
+      body: newData.body,
+      loginName: username,
+    };
+
+    console.log(newPost);
+    console.log(dataList);
 
     // Add the new post to the list
-    setDataList([...dataList, newPost]);
-    setNewData({ title: '', body: '' }); 
+    const updatedDataList = [...dataList, newPost];
+    setDataList(updatedDataList);
+    
+    // Save dataList - title, body, ID - to local storage
+    const storedDataList = JSON.stringify(updatedDataList);
+    localStorage.setItem('dataList', storedDataList);
+    setNewData({ title: "", body: "" });
   };
 
   const handleSave = (id) => {
@@ -71,8 +87,23 @@ const Home = () => {
     // Remove post from local state
     const updatedDataList = dataList.filter((item) => item.id !== id);
     setDataList(updatedDataList);
-    console.log("Delete: ", id)
+    console.log("Delete: ", id);
   };
+
+
+  // Retrieve all from local storage when component mounts
+  useEffect(() => {
+    const storedDataList = JSON.parse(localStorage.getItem('dataList')) || [];
+
+
+    if (storedDataList) {
+      setDataList(storedDataList);
+    } else {
+      navigate("/login"); // Redirect to login if no username is found
+    }
+  }, [ setDataList]);
+  
+  
 
   return (
     <Layout>
@@ -89,23 +120,28 @@ const Home = () => {
       <div className="item-container">
         <div className="add-group">
           <div className="add-input">
-          <Input
-            className="add-margin"
-            placeholder="Title"
-            value={newData.title}
-            onChange={(e) => setNewData({ ...newData, title: e.target.value })}
-            required
-          />
-          <TextArea
-            className="add-margin"
-            placeholder="Body"
-            rows={4}
-            value={newData.body}
-            onChange={(e) => setNewData({ ...newData, body: e.target.value })}
-            required
-          />            
+            <Input
+              className="add-margin"
+              placeholder="Title"
+              value={newData.title}
+              onChange={(e) => setNewData({ ...newData, title: e.target.value })}
+              required
+            />
+            <TextArea
+              className="add-margin"
+              placeholder="Body"
+              rows={4}
+              value={newData.body}
+              onChange={(e) => setNewData({ ...newData, body: e.target.value })}
+              required
+            />
           </div>
-          <button className="add-button" type="button" onClick={handleAdd} disabled={!newData.title || !newData.body}>
+          <button
+            className="add-button"
+            type="button"
+            onClick={handleAdd}
+            disabled={!newData.title || !newData.body}
+          >
             Add Post
           </button>
         </div>

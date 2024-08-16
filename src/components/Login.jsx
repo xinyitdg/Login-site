@@ -17,7 +17,9 @@ const Login = () => {
     e.preventDefault();
     if (validUsername(localUsername)) {
       setUsername(localUsername); // update username to local username -> Home
+      localStorage.setItem('username', localUsername);
       setLocalUsername(""); // clear local username input
+      
       navigate("/");
     }
   };
