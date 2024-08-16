@@ -1,15 +1,15 @@
 html,
 body {
   height: 100%;
-  font-family: 'Source Sans Pro';
+  font-family: "Noto Serif", serif;
   overflow-x: hidden;
 }
 
-textarea, input, select {
-  font-size: inherit;
+textarea, input, select, label, form {
+  font-size: 14px;
   font-weight: inherit;
   text-decoration: none;
-  font-family: inherit;
+  font-family: "Noto Serif", serif;
 }
 
 .container {
@@ -34,15 +34,12 @@ textarea, input, select {
   border: none;
   color: white;
   text-align: center;
-  /* display: inline-block; */
   font-size: 14px;
   margin: 10px 10px;
   cursor: pointer;
   border-radius: 40px;
   width: 100px;
   height: 44px;
-  /* position: absolute; */
-  /* right: 50px; */
 }
 
 .items-container {
@@ -82,17 +79,21 @@ textarea, input, select {
   height: 40px;
 }
 
+.form-modal {
+  font-family: "Noto Serif", serif;
+}
+
 .form-group {
   display: flex;
   align-items: center;
-  margin-bottom: 15px;
+  margin: 20px 0 20px 0;
 }
 
 .form-label {
   width: 80px;
   font-weight: bold;
   margin-bottom: auto;
-  padding-top: 10px;
+
 }
 
 .form-input {
@@ -119,7 +120,7 @@ textarea, input, select {
   max-width: 360px;
   outline: none;
   padding: 8px;
-  margin-top: 10px;
+  /* margin-top: 10px; */
 }
 
 .form-body {
@@ -129,8 +130,8 @@ textarea, input, select {
   max-width: 360px;
   outline: none;
   padding: 8px;
-  margin-top: 5px;
-  margin-bottom: 10px;
+  /* margin-top: 5px; */
+  /* margin-bottom: 10px; */
 }
 
 .add-group{
@@ -154,13 +155,13 @@ textarea, input, select {
 
 .add-title {
   margin: 8px;
-  padding: 6px;
+  padding: 8px;
   width: 100%;
 }
 
 .add-body {
   margin: 8px;
-  padding: 6px;
+  padding: 8px;
   min-width: 100%;
   max-width: 100%;
   min-height: 50px;
